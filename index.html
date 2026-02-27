@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Travix Tourism</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#f4f4f4;
+}
+
+header{
+background-image: url('background.jpg');  /* replace travel.jpg with your file name */
+background-size: cover;
+background-position: center;
+height: 420px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: white;
+text-align: center;
+position: relative;
+}
+
+header::before{
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+}
+
+header h1, header p{
+position: relative;
+z-index: 1;
+}
+
+nav{
+background:#faa307;
+padding:12px;
+text-align:center;
+}
+
+nav button{
+background:none;
+border:none;
+margin:10px 20px;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+
+section{
+display:none;
+padding:30px;
+
+}
+
+.active{
+display:block;
+}
+
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+width:280px;
+padding:15px;
+border-radius:8px;
+box-shadow:0 3px 8px gray;
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:8px;
+}
+
+input, select{
+width:100%;
+padding:8px;
+margin:8px 0;
+}
+
+button.action{
+background:#0d3b66;
+color:white;
+padding:10px;
+border:none;
+cursor:pointer;
+}
+
+footer{
+background:#0d3b66;
+color:white;
+text-align:center;
+padding:10px;
+margin-top:20px;
+}
+</style>
+
+<script>
+function showSection(id){
+var sections=document.querySelectorAll("section");
+sections.forEach(sec=>sec.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+function showBookingTab(type){
+if(type=="normal"){
+document.getElementById("normalBooking").style.display="block";
+document.getElementById("appointmentBooking").style.display="none";
+}else{
+document.getElementById("normalBooking").style.display="none";
+document.getElementById("appointmentBooking").style.display="block";
+}
+}
+
+function calculateTotal(){
+
+var city = parseInt(document.getElementById("city").value);
+var days = parseInt(document.getElementById("days").value);
+var restaurant = parseInt(document.getElementById("restaurant").value);
+var hotel = parseInt(document.getElementById("hotel").value);
+
+var total = (city + restaurant + hotel) * days;
+
+document.getElementById("totalPrice").innerHTML =
+"Estimated Total Package Price: ₹ " + total;
+
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h1>Travix Tourism & Hospitality</h1>
+</header>
+
+<nav>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('services')">Services</button>
+<button onclick="showSection('booking')">Booking</button>
+<button onclick="showSection('about')">About Us</button>
+</nav>
+
+<!-- HOME -->
+
+<section id="home" class="active">
+<h2 align="center">Top Destinations in India</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://marquishotels.in/wp-content/uploads/2019/06/North_Goa_Beach.jpg">
+<h3>Goa</h3>
+
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg">
+<h3>Agra</h3>
+</div>
+
+<div class="card">
+<img src="https://www.shutterstock.com/shutterstock/photos/2692045069/display_1500/stock-photo-hawa-mahal-jaypur-rajasthan-was-built-by-maharaja-sawai-pratap-singh-in-2692045069.jpg">
+<h3>Jaipur</h3>
+
+</div>
+
+<div class="card">
+<img src="https://keralatourism.travel/images/destinations/headers/kumarakom-kerala-tourism-entry-fee-timings-holidays-reviews-header.jpg">
+<h3>Kerala</h3>
+
+</div>
+
+</div>
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+<h2 align="center">Our Services</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://webrezpro.com/wp-content/uploads/2025/08/hotel-check-in.jpg">
+<h3>Hotel Booking</h3>
+<p>5 Star, 3 Star & Budget stays.</p>
+</div>
+
+<div class="card">
+<img src="https://www.shreeazad.com/img/transport-services.jpeg">
+<h3>Transport Services</h3>
+<p>Airport pickup & travel transport.</p>
+</div>
+
+<div class="card">
+<img src="https://media.traveldepartment.com/image/upload/g_auto,f_auto,q_auto:best,c_lfill,w_1000/v1732617823/Who_is_a_Guided_Tour_Suitable_For_Local_Guides_jpg_35540ee5e4.jpg">
+<h3>Guided Tours</h3>
+<p>Local expert heritage tours.</p>
+</div>
+
+<div class="card">
+<img src="https://franchise.ribandchophouse.com/wp-content/uploads/2023/09/great-restaurant-experience.jpg">
+<h3>Restaurant Experiences</h3>
+<p>Authentic & multi-cuisine dining.</p>
+</div>
+
+</div>
+</section>
+
+<!-- BOOKING -->
+
+<section id="booking">
+<h2 align="center">Travel Booking</h2>
+
+<div style="text-align:center;">
+<button class="action" onclick="showBookingTab('normal')">Normal Booking</button>
+<button class="action" onclick="showBookingTab('appointment')">Personalized Appointment</button>
+</div>
+
+<br>
+
+<div id="normalBooking">
+
+<label>Select City</label>
+<select id="city">
+<option value="2000">Goa</option>
+<option value="2500">Jaipur</option>
+<option value="3000">Kerala</option>
+<option value="3500">Mumbai</option>
+</select>
+
+<label>Number of Days</label>
+<input type="number" id="days" value="1" min="1">
+
+<label>Restaurant Type</label>
+<select id="restaurant">
+<option value="1000">Local Authentic</option>
+<option value="1500">Multi Cuisine</option>
+<option value="2500">Luxury Dining</option>
+</select>
+
+<label>Hotel Type</label>
+<select id="hotel">
+<option value="5000">5 Star Hotel</option>
+<option value="3000">3 Star Hotel</option>
+<option value="1500">Budget Stay</option>
+</select>
+
+<button class="action" onclick="calculateTotal()">Calculate Price</button>
+
+<h3 id="totalPrice"></h3>
+
+</div>
+
+<div id="appointmentBooking" style="display:none;">
+
+<h3>One-to-One Personalized Tourism</h3>
+
+<label>Name</label>
+<input type="text">
+
+<label>Email</label>
+<input type="email">
+
+<label>Travel Date</label>
+<input type="date">
+
+<button class="action">Book Appointment</button>
+
+</div>
+
+</section>
+
+<section id="about">
+<h2 align="center">About Travix</h2>
+
+<p align="center">
+Travix is a modern tourism and hospitality startup founded by passionate young entrepreneurs with a vision to transform travel experiences across India. 
+We aim to make travel planning simple, affordable, organized, and memorable for every traveler.
+</p>
+
+<p align="center">
+Our platform provides complete travel solutions including hotel bookings, transport arrangements, curated local experiences, guided tours, corporate travel management, and personalized tourism services. 
+We combine smart digital tools with real human support to ensure a smooth and stress-free journey.
+</p>
+
+<p align="center">
+Travix strongly believes in community-based and sustainable tourism. 
+We collaborate with local businesses, hosts, and service providers to promote regional culture, generate employment, and contribute to economic growth in different parts of the country.
+</p>
+
+<p align="center">
+Our mission is to deliver quality travel experiences while maintaining transparency, safety, affordability, and customer satisfaction. 
+We focus on building trust and long-term relationships with our clients through reliable service and personalized attention.
+</p>
+
+<br>
+
+<div style="text-align:center;">
+<h3>Our Vision</h3>
+<p>
+To become one of India's most trusted tourism platforms by offering innovative, sustainable, and customer-centric travel solutions.
+</p>
+
+<h3>Contact Information</h3>
+<p>
+Travix<br>
+<strong>Phone:</strong> 9876543210<br>
+<strong>Email:</strong> travixinfo@gmail.com
+</p>
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Travix Tourism </p>
+
+<p>
+Follow us on Instagram:
+<a href="https://www.instagram.com/heytravix?igsh=bXpiY3V2eGhqcDUz" target="_blank" style="color:#faa307; font-weight:bold;">
+@heytravix
+</a>
+</p>
+
+</footer>
+</body>
+</html>
