@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Travix Tourism</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -80,11 +81,29 @@ border-radius:8px;
 box-shadow:0 3px 8px gray;
 }
 
+.card.service-link{
+cursor:pointer;
+transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card.service-link:hover{
+transform:translateY(-4px);
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
 .card img{
 width:100%;
 height:180px;
 object-fit:cover;
 border-radius:8px;
+}
+
+.trip-card img{
+width:100%;
+max-height:160px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:8px;
 }
 
 input, select{
@@ -99,6 +118,88 @@ color:white;
 padding:10px;
 border:none;
 cursor:pointer;
+}
+
+/* Airbnb-style trip cards */
+.trip-grid{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+margin-top:20px;
+}
+
+.trip-card{
+background:white;
+width:310px;
+padding:16px;
+border-radius:12px;
+box-shadow:0 3px 10px rgba(0,0,0,0.15);
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.trip-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:4px;
+}
+
+.trip-location{
+font-weight:bold;
+font-size:18px;
+}
+
+.trip-tag{
+font-size:12px;
+padding:3px 8px;
+border-radius:999px;
+background:#f4f4f4;
+color:#555;
+}
+
+.trip-subtitle{
+font-size:13px;
+color:#666;
+margin-bottom:6px;
+}
+
+.field-row{
+display:flex;
+gap:8px;
+}
+
+.field-row > div{
+flex:1;
+}
+
+.pill-label{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:0.03em;
+color:#888;
+margin-bottom:3px;
+}
+
+.price-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+font-size:13px;
+margin-top:6px;
+color:#444;
+}
+
+.price-row span strong{
+font-size:16px;
+}
+
+.pill-note{
+font-size:11px;
+color:#999;
+margin-top:2px;
 }
 
 footer{
@@ -136,9 +237,42 @@ var hotel = parseInt(document.getElementById("hotel").value);
 
 var total = (city + restaurant + hotel) * days;
 
+// Use Unicode escape for Rupee Symbol
 document.getElementById("totalPrice").innerHTML =
-"Estimated Total Package Price: ₹ " + total;
+"Estimated Total Package Price: &#8377; " + total;
 
+}
+
+function showHotelSamples(){
+var list=document.getElementById("hotelSampleList");
+if(list){
+list.style.display="block";
+list.scrollIntoView({behavior:"smooth"});
+}
+}
+
+function showTransportSamples(){
+var list=document.getElementById("transportSampleList");
+if(list){
+list.style.display="block";
+list.scrollIntoView({behavior:"smooth"});
+}
+}
+
+function showTourSamples(){
+var list=document.getElementById("tourSampleList");
+if(list){
+list.style.display="block";
+list.scrollIntoView({behavior:"smooth"});
+}
+}
+
+function showRestaurantSamples(){
+var list=document.getElementById("restaurantSampleList");
+if(list){
+list.style.display="block";
+list.scrollIntoView({behavior:"smooth"});
+}
 }
 </script>
 
@@ -147,7 +281,7 @@ document.getElementById("totalPrice").innerHTML =
 <body>
 
 <header>
-<h1>Travix Tourism & Hospitality</h1>
+<h1>Travix Tourism &amp; Hospitality</h1>
 </header>
 
 <nav>
@@ -197,28 +331,28 @@ document.getElementById("totalPrice").innerHTML =
 
 <div class="grid">
 
-<div class="card">
-<img src="https://webrezpro.com/wp-content/uploads/2025/08/hotel-check-in.jpg">
+<div class="card service-link" onclick="showSection('hotelService')">
+<img src="images/hotels/download.jpeg" alt="Sample hotel in India">
 <h3>Hotel Booking</h3>
-<p>5 Star, 3 Star & Budget stays.</p>
+<p>5 Star, 3 Star &amp; Budget stays.</p>
 </div>
 
-<div class="card">
+<div class="card service-link" onclick="showSection('transportService')">
 <img src="https://www.shreeazad.com/img/transport-services.jpeg">
 <h3>Transport Services</h3>
-<p>Airport pickup & travel transport.</p>
+<p>Airport pickup &amp; travel transport.</p>
 </div>
 
-<div class="card">
+<div class="card service-link" onclick="showSection('toursService')">
 <img src="https://media.traveldepartment.com/image/upload/g_auto,f_auto,q_auto:best,c_lfill,w_1000/v1732617823/Who_is_a_Guided_Tour_Suitable_For_Local_Guides_jpg_35540ee5e4.jpg">
 <h3>Guided Tours</h3>
 <p>Local expert heritage tours.</p>
 </div>
 
-<div class="card">
-<img src="https://franchise.ribandchophouse.com/wp-content/uploads/2023/09/great-restaurant-experience.jpg">
+<div class="card service-link" onclick="showSection('restaurantService')">
+<img src="images/restaurants/download.jpeg" alt="Sample restaurant experience">
 <h3>Restaurant Experiences</h3>
-<p>Authentic & multi-cuisine dining.</p>
+<p>Authentic &amp; multi-cuisine dining.</p>
 </div>
 
 </div>
@@ -227,65 +361,1188 @@ document.getElementById("totalPrice").innerHTML =
 <!-- BOOKING -->
 
 <section id="booking">
-<h2 align="center">Travel Booking</h2>
+<h2 align="center">Search &amp; Plan Your Trip</h2>
+<p style="text-align:center; color:#666; max-width:640px; margin:8px auto 24px;">
+Use the quick search below to discover exact prices and details for hotels, flights, tours, and restaurants in the city of your choice.<br>
+Try examples like <b>"Agra Hotels"</b>, <b>"Jaipur Flights"</b>, <b>"Mumbai Restaurants"</b>, <b>"Kerala Tours"</b>.<br>
+You can search by city and service (e.g., "<i>city</i> <i>service</i>").
+</p>
 
-<div style="text-align:center;">
-<button class="action" onclick="showBookingTab('normal')">Normal Booking</button>
-<button class="action" onclick="showBookingTab('appointment')">Personalized Appointment</button>
+<div id="bookingSearchBar" style="text-align:center; margin-bottom:36px;">
+  <input 
+    id="cityServiceSearchInput" 
+    type="text" 
+    placeholder="Search (e.g. Agra Hotels, Mumbai Flights)..." 
+    style="padding:10px 18px; border-radius:6px; min-width:260px; width:60%; font-size:17px;">
+  <button class="action" id="cityServiceSearchBtn" style="margin-left:10px;">Search</button>
 </div>
 
-<br>
+<div class="trip-grid">
 
-<div id="normalBooking">
-
-<label>Select City</label>
-<select id="city">
-<option value="2000">Goa</option>
-<option value="2500">Jaipur</option>
-<option value="3000">Kerala</option>
-<option value="3500">Mumbai</option>
-</select>
-
-<label>Number of Days</label>
-<input type="number" id="days" value="1" min="1">
-
-<label>Restaurant Type</label>
-<select id="restaurant">
-<option value="1000">Local Authentic</option>
-<option value="1500">Multi Cuisine</option>
-<option value="2500">Luxury Dining</option>
-</select>
-
-<label>Hotel Type</label>
-<select id="hotel">
-<option value="5000">5 Star Hotel</option>
-<option value="3000">3 Star Hotel</option>
-<option value="1500">Budget Stay</option>
-</select>
-
-<button class="action" onclick="calculateTotal()">Calculate Price</button>
-
-<h3 id="totalPrice"></h3>
+  <!-- Dynamic Single Service Display -->
+  <div class="trip-card" id="serviceSearchResultDisplay" style="display:none;min-width:340px;">
+    <div class="trip-header">
+      <span class="trip-location" id="searchedCityService"></span>
+      <span class="trip-tag" id="searchedServiceType"></span>
+    </div>
+    <div id="serviceSearchResultContent" style="font-size:14px; color:#444; margin:12px 0 0 0;">
+      <!-- Dynamic Search Result Will Appear Here -->
+    </div>
+  </div>
 
 </div>
 
-<div id="appointmentBooking" style="display:none;">
+<script>
+// City, Service, Image, and Price data
+const servicesByCity = {
+  "Goa": {
+    hotels: [
+      {
+        name: "Sea Breeze Resort",
+        desc: "North Goa, beautiful beachside 4★",
+        price: "&#8377;6,200/night",
+        img: "images/hotels/download.jpeg"
+      },
+      {
+        name: "Coconut Inn",
+        desc: "Budget option near Anjuna",
+        price: "&#8377;2,800/night",
+        img: "images/hotels/download%20(1).jpeg"
+      },
+      {
+        name: "Goa Grand 5★",
+        desc: "Luxury resort, private beach",
+        price: "&#8377;14,500/night",
+        img: "images/hotels/download%20(2).jpeg"
+      }
+    ],
+    transport: [
+      {
+        name: "Private Airport Pickup",
+        desc: "From Goa Airport anywhere in North/South Goa",
+        price: "&#8377;1,200/trip",
+        img: "images/transport/plane.jpeg"
+      }
+    ],
+    tours: [
+      {
+        name: "Goan Beach Explorer",
+        desc: "Sunset guided tour, local snacks included",
+        price: "&#8377;1,100/person",
+        img: "images/tours/download.jpeg"
+      }
+    ],
+    restaurants: [
+      {
+        name: "Spice Route",
+        desc: "Seafood & sunsets, beachside",
+        price: "&#8377;1,700 for two",
+        img: "images/restaurants/download%20(3).jpeg"
+      }
+    ],
+    flights: [
+      {
+        name: "DEL – GOI (Delhi To Goa)",
+        desc: "Evening direct, 2h 40m",
+        price: "&#8377;5,900/one-way",
+        img: "images/flights/download.jpeg"
+      }
+    ]
+  },
+  "Agra": {
+    hotels: [
+      {
+        name: "Palace View Hotel",
+        desc: "Taj Mahal view rooms",
+        price: "&#8377;5,800/night",
+        img: "images/hotels/download%20(4).jpeg"
+      },
+      {
+        name: "Taj Budget Stay",
+        desc: "Great for groups, near Fort",
+        price: "&#8377;2,100/night",
+        img: "images/hotels/download%20(5).jpeg"
+      }
+    ],
+    transport: [
+      {
+        name: "Agra Airport Pickup",
+        desc: "From Agra airport/hotel",
+        price: "&#8377;900/trip",
+        img: "images/transport/train.jpeg"
+      }
+    ],
+    tours: [
+      {
+        name: "Heritage Day Tour",
+        desc: "Taj Mahal + Agra Fort, car & guide",
+        price: "&#8377;2,350/person",
+        img: "images/tours/download.jpeg"
+      }
+    ],
+    restaurants: [
+      {
+        name: "Mughal Roof Top",
+        desc: "Authentic Mughlai, monument views",
+        price: "&#8377;1,200 for two",
+        img: "images/restaurants/download%20(6).jpeg"
+      }
+    ],
+    flights: [
+      {
+        name: "DEL – DEL (via Delhi)",
+        desc: "Nearest airport: Delhi, then taxi to Agra",
+        price: "&#8377;4,300 + taxi",
+        img: "images/flights/download.jpeg"
+      }
+    ]
+  },
+  "Jaipur": {
+    hotels: [
+      {
+        name: "Pink City Haveli",
+        desc: "Traditional luxury, city center",
+        price: "&#8377;4,800/night",
+        img: "images/hotels/download%20(7).jpeg"
+      },
+      {
+        name: "Fort Residency",
+        desc: "Budget 3★, close to railway",
+        price: "&#8377;2,300/night",
+        img: "images/hotels/download%20(8).jpeg"
+      }
+    ],
+    transport: [
+      {
+        name: "City Car+Driver",
+        desc: "Airport & Pink City package (8hr)",
+        price: "&#8377;1,500/day",
+        img: "images/transport/cab.jpeg"
+      }
+    ],
+    tours: [
+      {
+        name: "Palace & Heritage Tour",
+        desc: "Amer Fort, City Palace, local guide",
+        price: "&#8377;1,750/person",
+        img: "images/tours/download.jpeg"
+      }
+    ],
+    restaurants: [
+      {
+        name: "Hawa Courtyard",
+        desc: "Rooftop thali dinner",
+        price: "&#8377;900 per person",
+        img: "images/restaurants/download%20(9).jpeg"
+      }
+    ],
+    flights: [
+      {
+        name: "BOM – JAI (Mumbai to Jaipur)",
+        desc: "Direct, morning, 2h 15m",
+        price: "&#8377;4,200/one-way",
+        img: "images/flights/download.jpeg"
+      }
+    ]
+  },
+  "Kerala": {
+    hotels: [
+      {
+        name: "Backwater Retreat",
+        desc: "Houseboat, Kumarakom",
+        price: "&#8377;7,500/night",
+        img: "images/hotels/download%20(10).jpeg"
+      },
+      {
+        name: "Green Leaf Homestay",
+        desc: "Eco-boutique by Vembanad",
+        price: "&#8377;3,600/night",
+        img: "images/hotels/download%20(11).jpeg"
+      }
+    ],
+    transport: [
+      {
+        name: "Boat/Car Transfers",
+        desc: "Local boat & car, Alleppey & Kochi",
+        price: "&#8377;1,400/trip",
+        img: "images/transport/boat.jpeg"
+      }
+    ],
+    tours: [
+      {
+        name: "Guided Backwater Tour",
+        desc: "Half day cruise with snacks",
+        price: "&#8377;2,900/person",
+        img: "images/tours/download.jpeg"
+      }
+    ],
+    restaurants: [
+      {
+        name: "Backwater Bistro",
+        desc: "Lakeside local cuisine",
+        price: "&#8377;1,100 for two",
+        img: "images/restaurants/download%20(12).jpeg"
+      }
+    ],
+    flights: [
+      {
+        name: "BLR – COK (Bengaluru to Cochin)",
+        desc: "Nonstop, afternoon",
+        price: "&#8377;5,100/one-way",
+        img: "images/flights/download.jpeg"
+      }
+    ]
+  },
+  "Mumbai": {
+    hotels: [
+      {
+        name: "Harbour Grand Hotel",
+        desc: "Luxury, South Mumbai",
+        price: "&#8377;9,100/night",
+        img: "images/hotels/download%20(13).jpeg"
+      },
+      {
+        name: "City Lodge",
+        desc: "Budget, CST area",
+        price: "&#8377;2,700/night",
+        img: "images/hotels/download%20(14).jpeg"
+      }
+    ],
+    transport: [
+      {
+        name: "City Chauffeur",
+        desc: "Airport pickup & 6hr local",
+        price: "&#8377;1,600/day",
+        img: "images/transport/cab.jpeg"
+      }
+    ],
+    tours: [
+      {
+        name: "Bollywood & City Walk",
+        desc: "Studio entry, historic sites",
+        price: "&#8377;2,500/person",
+        img: "images/tours/download.jpeg"
+      }
+    ],
+    restaurants: [
+      {
+        name: "Marine Bay Dining",
+        desc: "Luxury restaurant, sea views",
+        price: "&#8377;2,400 for two",
+        img: "images/restaurants/download%20(15).jpeg"
+      }
+    ],
+    flights: [
+      {
+        name: "DEL – BOM (Delhi to Mumbai)",
+        desc: "Direct, evening",
+        price: "&#8377;6,800/one-way",
+        img: "images/flights/download.jpeg"
+      }
+    ]
+  }
+};
 
-<h3>One-to-One Personalized Tourism</h3>
+const serviceTypeAliases = {
+  hotels: ["hotel", "hotels", "stay", "stays", "accommodation"],
+  restaurants: ["restaurant", "restaurants", "dining", "food", "eat", "eatery"],
+  tours: ["tour", "tours", "guide", "heritage"],
+  transport: ["transport", "transfer", "pickup", "chauffeur", "car", "road", "driver"],
+  flights: ["flight", "flights", "air", "airfare", "plane", "fare", "airline", "airlines"],
+};
 
-<label>Name</label>
-<input type="text">
+// Find matching city and service type
+function findMatchingCityService(query) {
+  query = query.trim().toLowerCase();
 
-<label>Email</label>
-<input type="email">
+  // 1. City match
+  let matchedCity = null;
+  for (const c of Object.keys(servicesByCity)) {
+    if (query.includes(c.toLowerCase())) {
+      matchedCity = c;
+      break;
+    }
+  }
+  if (!matchedCity) return null;
 
-<label>Travel Date</label>
-<input type="date">
+  // 2. Service type match
+  let foundType = null, canonicalType = null;
+  outer: for (let [type, aliases] of Object.entries(serviceTypeAliases)) {
+    for (let alias of aliases) {
+      if (query.match(new RegExp("\\b" + alias + "\\b"))) {
+        foundType = type;
+        canonicalType = alias;
+        break outer;
+      }
+    }
+  }
+  if (!foundType) {
+    // fallback: just city, show all
+    return {
+      city: matchedCity,
+      type: null,
+      data: servicesByCity[matchedCity]
+    };
+  }
+  // If service exists in city
+  if (servicesByCity[matchedCity][foundType]) {
+    return {
+      city: matchedCity,
+      type: foundType,
+      data: servicesByCity[matchedCity][foundType]
+    };
+  }
 
-<button class="action">Book Appointment</button>
+  return null;
+}
 
+document.addEventListener("DOMContentLoaded", function() {
+  const input = document.getElementById("cityServiceSearchInput");
+  const btn = document.getElementById("cityServiceSearchBtn");
+  const resultCard = document.getElementById("serviceSearchResultDisplay");
+  const cityLabel = document.getElementById("searchedCityService");
+  const typeTag = document.getElementById("searchedServiceType");
+  const content = document.getElementById("serviceSearchResultContent");
+
+  function renderServiceTile(item) {
+    return `
+      <div style="display:flex; align-items:flex-start; margin-bottom:14px;">
+        <img src="${item.img}" style="width:70px; height:54px; border-radius:6px; object-fit:cover; margin-right:12px; background:#eee;">
+        <div>
+          <div style="font-weight:bold; font-size:15px; color:#222;">${item.name}</div>
+          <div style="color:#777; font-size:13px; margin:2px 0 7px 0;">${item.desc}</div>
+          <span style="background:#e7eaf6; color:#0d3b66; padding:2.5px 6px; border-radius:4px; font-size:13px;">
+            <strong>${item.price}</strong>
+          </span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderServiceList(serviceArr, typeLabel, city) {
+    return `<div style="margin-bottom:8px; font-weight:bold; color:#13334c; font-size:15px;">${typeLabel} in ${city}:</div>
+      ${serviceArr.map(renderServiceTile).join('')}`;
+  }
+
+  function showResult(city, type, res) {
+    cityLabel.textContent = city + (type ? " – " + type.charAt(0).toUpperCase() + type.slice(1) : " – All Services");
+    typeTag.textContent = type ? (type.charAt(0).toUpperCase() + type.slice(1)) : "All";
+    if (type && Array.isArray(res)) {
+      let label;
+      switch (type) {
+        case 'hotels': label = 'Hotels'; break;
+        case 'flights': label = 'Flights'; break;
+        case 'tours': label = 'Guided Tours'; break;
+        case 'transport': label = 'Transport'; break;
+        case 'restaurants': label = 'Restaurants'; break;
+        default: label = type.charAt(0).toUpperCase() + type.slice(1);
+      }
+      content.innerHTML = renderServiceList(res, label, city);
+    } else if (!type && typeof res === "object") {
+      // all services - multi-column
+      let order = ['hotels', 'flights', 'tours', 'transport', 'restaurants'];
+      let labels = {
+        hotels: 'Hotels',
+        flights: 'Flights',
+        tours: 'Guided Tours',
+        transport: 'Transport',
+        restaurants: 'Restaurants'
+      };
+      content.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+          ${order.map(k => `<div>${renderServiceList(res[k], labels[k], city)}</div>`).join("")}
+        </div>
+      `;
+    } else {
+      content.innerHTML = "<div style='color:#a33;'>No detailed info found.</div>";
+    }
+    resultCard.style.display = "block";
+    resultCard.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  function doSearch() {
+    resultCard.style.display = "none";
+    let query = input.value || "";
+    let match = findMatchingCityService(query);
+    if (!match) {
+      content.innerHTML = `<span style="color:#e74c3c;">Sorry, we couldn't find that city or service.</span>`;
+      resultCard.style.display = "block";
+      return;
+    }
+    showResult(match.city, match.type, match.data);
+  }
+
+  btn.addEventListener("click", doSearch);
+  input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") doSearch();
+  });
+});
+
+</script>
+
+</section>
+
+<!-- Service-specific pages -->
+
+<section id="hotelService">
+<h2 align="center">Hotel Booking</h2>
+<div style="max-width:900px; margin:0 auto;">
+  <button class="action" style="margin-bottom:16px;" onclick="showSection('services')">&#8592; Back to Services</button>
+
+  <p style="text-align:center; color:#555; max-width:640px; margin:0 auto 20px;">
+  Preview how Travix could help you book stays across India. Choose your city, dates, and preferred stay type.
+  </p>
+
+  <div class="trip-grid">
+    <div class="trip-card">
+      <div class="trip-header">
+        <span class="trip-location">Book your stay</span>
+        <span class="trip-tag">Hotels, resorts &amp; homestays</span>
+      </div>
+      <p class="trip-subtitle">Configure a sample hotel booking. This is a visual demo only.</p>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Destination</div>
+          <select>
+            <option>Goa</option>
+            <option>Agra</option>
+            <option>Jaipur</option>
+            <option>Kerala</option>
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Guests</div>
+          <select>
+            <option>2 guests</option>
+            <option>3 guests</option>
+            <option>Family (4)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Check-in</div>
+          <input type="date">
+        </div>
+        <div>
+          <div class="pill-label">Check-out</div>
+          <input type="date">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Room type</div>
+          <select>
+            <option>Standard room</option>
+            <option>Deluxe room</option>
+            <option>Suite</option>
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Meal plan</div>
+          <select>
+            <option>Room only</option>
+            <option>Breakfast included</option>
+            <option>All meals</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <span><strong>&#8377; 6,500</strong> per night (sample)</span>
+        <button class="action" onclick="showHotelSamples()">Review sample booking</button>
+      </div>
+      <div class="pill-note">Frontend only &ndash; no payment or real reservation is made.</div>
+    </div>
+  </div>
+
+  <div id="hotelSampleList" style="margin-top:30px; display:none;">
+    <h3>Sample hotels you could pick</h3>
+    <div class="trip-grid">
+      <div class="trip-card">
+        <img src="images/hotels/download.jpeg" alt="Sea Breeze Resort Goa">
+        <div class="trip-header">
+          <span class="trip-location">Sea Breeze Resort</span>
+          <span class="trip-tag">Goa</span>
+        </div>
+        <p class="trip-subtitle">Beachfront resort with pool and breakfast.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 6,200</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(1).jpeg" alt="Pink City Heritage Stay Jaipur">
+        <div class="trip-header">
+          <span class="trip-location">Pink City Heritage Stay</span>
+          <span class="trip-tag">Jaipur</span>
+        </div>
+        <p class="trip-subtitle">Haveli-style rooms near Hawa Mahal.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 4,800</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(2).jpeg" alt="Backwater Lagoon Resort Kerala">
+        <div class="trip-header">
+          <span class="trip-location">Backwater Lagoon Resort</span>
+          <span class="trip-tag">Kerala</span>
+        </div>
+        <p class="trip-subtitle">Cottages with serene backwater views.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 7,500</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(3).jpeg" alt="Calangute Bay Hotel Goa">
+        <div class="trip-header">
+          <span class="trip-location">Calangute Bay Hotel</span>
+          <span class="trip-tag">Goa</span>
+        </div>
+        <p class="trip-subtitle">Walkable to Calangute beach and cafes.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 5,400</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(4).jpeg" alt="Amber Fort View Inn Jaipur">
+        <div class="trip-header">
+          <span class="trip-location">Amber Fort View Inn</span>
+          <span class="trip-tag">Jaipur</span>
+        </div>
+        <p class="trip-subtitle">Rooms with views of Amber Fort.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 5,900</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(5).jpeg" alt="Taj View Residency Agra">
+        <div class="trip-header">
+          <span class="trip-location">Taj View Residency</span>
+          <span class="trip-tag">Agra</span>
+        </div>
+        <p class="trip-subtitle">Modern stay with partial Taj views.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 4,500</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(6).jpeg" alt="Houseboat Harmony Kerala">
+        <div class="trip-header">
+          <span class="trip-location">Houseboat Harmony</span>
+          <span class="trip-tag">Kerala</span>
+        </div>
+        <p class="trip-subtitle">Premium houseboat with all meals.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 9,800</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(7).jpeg" alt="City Comfort Inn Mumbai">
+        <div class="trip-header">
+          <span class="trip-location">City Comfort Inn</span>
+          <span class="trip-tag">Mumbai</span>
+        </div>
+        <p class="trip-subtitle">Business hotel in central Mumbai.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 6,900</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(8).jpeg" alt="Fort Gate Boutique Agra">
+        <div class="trip-header">
+          <span class="trip-location">Fort Gate Boutique</span>
+          <span class="trip-tag">Agra</span>
+        </div>
+        <p class="trip-subtitle">Boutique hotel near Agra Fort.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 5,300</strong> per night</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/hotels/download%20(9).jpeg" alt="Old Town Courtyard Jaipur">
+        <div class="trip-header">
+          <span class="trip-location">Old Town Courtyard</span>
+          <span class="trip-tag">Jaipur</span>
+        </div>
+        <p class="trip-subtitle">Courtyard-style stay in old city lanes.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 4,200</strong> per night</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+</section>
 
+<section id="transportService">
+<h2 align="center">Transport Services</h2>
+<div style="max-width:900px; margin:0 auto;">
+  <button class="action" style="margin-bottom:16px;" onclick="showSection('services')">&#8592; Back to Services</button>
+
+  <p style="text-align:center; color:#555; max-width:640px; margin:0 auto 20px;">
+  Set up airport pickups, local transfers, and full-day cabs in a few clicks.
+  </p>
+
+  <div class="trip-grid">
+    <div class="trip-card">
+      <div class="trip-header">
+        <span class="trip-location">Plan your ride</span>
+        <span class="trip-tag">Airport &amp; city travel</span>
+      </div>
+      <p class="trip-subtitle">Preview how a transport booking screen would look.</p>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Mode</div>
+          <select id="transportModeSelect" onchange="updateTransportBookingForm(); updateTransportSampleList();">
+            <option value="car">Car</option>
+            <option value="plane">Flight</option>
+            <option value="train">Train</option>
+          </select>
+        </div>
+        <div>
+          <!-- Empty, for symmetry; you may add content here if needed -->
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Pickup</div>
+          <!-- Dynamic pickup selection based on mode -->
+          <select id="pickupSelect" onchange="syncDropOptionsWithPickup()">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Drop</div>
+          <select id="dropSelect">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Date</div>
+          <input type="date" id="transportDate">
+        </div>
+        <div>
+          <div class="pill-label">Pickup time</div>
+          <input type="time" id="transportTime">
+        </div>
+      </div>
+
+      <div class="field-row" id="vehicleTypeRow">
+        <div>
+          <div class="pill-label">Vehicle type</div>
+          <select id="vehicleTypeSelect">
+            <option>Sedan</option>
+            <option>SUV</option>
+            <option>Traveler / Van</option>
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Passengers</div>
+          <select id="passengerCountSelect">
+            <option>1-3</option>
+            <option>4-6</option>
+            <option>7-12</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <span><strong>&#8377; 1,800</strong> per trip (sample)</span>
+        <button class="action" onclick="showTransportSamples()">Review sample ride</button>
+      </div>
+      <div class="pill-note">UI only &ndash; ideal for demos and presentations.</div>
+    </div>
+  </div>
+
+  <div id="transportSampleList" style="margin-top:30px; display:none;">
+    <h3>Sample transport experience</h3>
+    <div id="customTransportSample">
+
+    </div>
+  </div>
+</div>
+<script>
+const pickupDropOptions = {
+  plane: {
+    pickup: [
+      { value: "delhi_airport", label: "🛫 Delhi IGI Airport (DEL)" },
+      { value: "goa_airport", label: "🛬 Goa Dabolim Airport (GOI)" },
+      { value: "mumbai_airport", label: "🛫 Mumbai Airport (BOM)" },
+      { value: "kochi_airport", label: "🛬 Kochi Airport (COK)" }
+    ],
+    drop: [
+      { value: "delhi_airport", label: "🛫 Delhi IGI Airport (DEL)" },
+      { value: "goa_airport", label: "🛬 Goa Dabolim Airport (GOI)" },
+      { value: "mumbai_airport", label: "🛫 Mumbai Airport (BOM)" },
+      { value: "kochi_airport", label: "🛬 Kochi Airport (COK)" }
+    ]
+  },
+  train: {
+    pickup: [
+      { value: "ndls", label: "🚆 New Delhi Railway Station" },
+      { value: "agra_cantt", label: "🚆 Agra Cantt Station" },
+      { value: "jaipur", label: "🚆 Jaipur Railway Station" },
+      { value: "ernakulam", label: "🚆 Ernakulam Jn (Kochi, Kerala)" }
+    ],
+    drop: [
+      { value: "ndls", label: "🚆 New Delhi Railway Station" },
+      { value: "agra_cantt", label: "🚆 Agra Cantt Station" },
+      { value: "jaipur", label: "🚆 Jaipur Railway Station" },
+      { value: "ernakulam", label: "🚆 Ernakulam Jn (Kochi, Kerala)" }
+    ]
+  },
+  car: {
+    pickup: [
+      { value: "hotel", label: "Hotel" },
+      { value: "airport", label: "Airport" },
+      { value: "railway_station", label: "Railway Station" },
+      { value: "city_center", label: "City Center" },
+      { value: "home", label: "Your Home/Residence" }
+    ],
+    drop: [
+      { value: "hotel", label: "Hotel" },
+      { value: "airport", label: "Airport" },
+      { value: "railway_station", label: "Railway Station" },
+      { value: "city_center", label: "City Center" },
+      { value: "tourist_spot", label: "Popular Tourist Spot" },
+      { value: "home", label: "Your Home/Residence" }
+    ]
+  }
+};
+
+// Remove existing options and re-populate drop options, excluding the selected pickup
+function updateDropOptions(mode, selectedPickup) {
+  const dropSelect = document.getElementById('dropSelect');
+  dropSelect.innerHTML = '';
+
+  // Get the drop options for the current mode, excluding the selected pickup value if present
+  let opts = pickupDropOptions[mode] || pickupDropOptions.car;
+  let filteredDrops = opts.drop.filter(dropOpt => dropOpt.value !== selectedPickup);
+
+  filteredDrops.forEach(op => {
+    let option = document.createElement('option');
+    option.value = op.value;
+    option.innerHTML = op.label;
+    dropSelect.appendChild(option);
+  });
+}
+
+// For when the pickup is changed: update only drop options based on selected pickup
+function syncDropOptionsWithPickup() {
+  const mode = document.getElementById('transportModeSelect').value;
+  const pickupSelect = document.getElementById('pickupSelect');
+  const selectedPickup = pickupSelect.value;
+  updateDropOptions(mode, selectedPickup);
+}
+
+// Initialize selections on page load or when mode changes (resetting both selects)
+function updateTransportBookingForm() {
+  const mode = document.getElementById('transportModeSelect').value;
+  const pickupSelect = document.getElementById('pickupSelect');
+  // Remove all options
+  pickupSelect.innerHTML = '';
+
+  let opts = pickupDropOptions[mode] || pickupDropOptions.car; // fallback
+
+  // Add pickup options
+  opts.pickup.forEach(op => {
+    let option = document.createElement('option');
+    option.value = op.value;
+    option.innerHTML = op.label;
+    pickupSelect.appendChild(option);
+  });
+
+  // Now update drop options based on the first pickup default
+  let selectedPickup = pickupSelect.options.length > 0 ? pickupSelect.options[0].value : null;
+  updateDropOptions(mode, selectedPickup);
+}
+
+function getOptionLabelByValue(mode, field, value) {
+  let pool = pickupDropOptions[mode] ? pickupDropOptions[mode][field] : pickupDropOptions.car[field];
+  let found = pool.find(o => o.value === value);
+  return found ? found.label : value;
+}
+
+function showTransportSamples() {
+  // Show the sample list and update filtered options based on mode
+  document.getElementById("transportSampleList").style.display = "block";
+
+  // Collect all chosen values
+  const mode = document.getElementById("transportModeSelect").value;
+  const pickupVal = document.getElementById('pickupSelect').value;
+  const dropVal = document.getElementById('dropSelect').value;
+
+  const pickupLabel = getOptionLabelByValue(mode, "pickup", pickupVal);
+  const dropLabel = getOptionLabelByValue(mode, "drop", dropVal);
+
+  const date = document.getElementById("transportDate").value;
+  const time = document.getElementById("transportTime").value;
+
+  let vehicleType = '';
+  let passengers = '';
+  if(mode === 'car') {
+    vehicleType = document.getElementById("vehicleTypeSelect").value;
+    passengers = document.getElementById("passengerCountSelect").value;
+  }
+
+  // Show ride summary
+  let summaryHtml = `
+    <div class="trip-card transport-sample transport-${mode}">
+      <img src="images/transport/${mode === 'car' ? 'cab' : mode}.jpeg" alt="Sample Ride">
+      <div class="trip-header">
+        <span class="trip-location">${pickupLabel}</span>
+        <span class="trip-tag">${dropLabel}</span>
+      </div>
+      <p class="trip-subtitle">
+        <strong>Mode:</strong> ${mode.charAt(0).toUpperCase()+mode.slice(1)}<br>
+        <strong>Pickup:</strong> ${pickupLabel}<br>
+        <strong>Drop:</strong> ${dropLabel}<br>
+        ${date ? `<strong>Date:</strong> ${date}<br>` : ''}
+        ${time ? `<strong>Pickup Time:</strong> ${time}<br>` : ''}
+        ${mode === 'car' ? `<strong>Vehicle:</strong> ${vehicleType}<br>` : ''}
+        ${mode === 'car' ? `<strong>Passengers:</strong> ${passengers}<br>` : ''}
+      </p>
+      <div class="price-row">
+        <span><strong>&#8377; ${getSampleFare(mode)}</strong> sample fare</span>
+      </div>
+    </div>
+  `;
+  document.getElementById("customTransportSample").innerHTML = summaryHtml;
+  document.getElementById("transportSampleList").scrollIntoView({behavior:"smooth"});
+}
+
+function getSampleFare(mode) {
+  if (mode === "plane") return "1,200";
+  if (mode === "train") return "350";
+  if (mode === "car") return "1,800";
+  return "N/A";
+}
+
+// Called when mode is changed or samples are shown
+function updateTransportSampleList() {
+  // Hide the default samples section since we now show a custom card
+  // This function can be kept in case you want to support generic examples too.
+  // In this refactored version, we just show the custom summary card.
+  const vehicleTypeRow = document.getElementById('vehicleTypeRow');
+  const mode = document.getElementById("transportModeSelect").value;
+  if (mode === 'car') {
+    vehicleTypeRow.style.display = '';
+  } else {
+    vehicleTypeRow.style.display = 'none';
+  }
+}
+
+// Initialize selections on pageload:
+document.addEventListener("DOMContentLoaded", function() {
+  updateTransportBookingForm();
+  updateTransportSampleList();
+
+  // Add pickup change event to dynamically update drop options
+  document.getElementById('pickupSelect').addEventListener('change', syncDropOptionsWithPickup);
+});
+
+</script>
+</section>
+
+<section id="toursService">
+<h2 align="center">Guided Tours</h2>
+<div style="max-width:900px; margin:0 auto;">
+  <button class="action" style="margin-bottom:16px;" onclick="showSection('services')">&#8592; Back to Services</button>
+
+  <p style="text-align:center; color:#555; max-width:640px; margin:0 auto 20px;">
+  Design a sample guided tour with local experts, timings, and group size.
+  </p>
+
+  <div class="trip-grid">
+    <div class="trip-card">
+      <div class="trip-header">
+        <span class="trip-location">Customize your tour</span>
+        <span class="trip-tag">Heritage &amp; experiences</span>
+      </div>
+      <p class="trip-subtitle">See how a curated tour planning screen might appear.</p>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">City</div>
+          <select>
+            <option>Agra &ndash; Taj &amp; Fort</option>
+            <option>Jaipur &ndash; Forts &amp; Bazaars</option>
+            <option>Kerala &ndash; Backwaters</option>
+            <option>Goa &ndash; Old churches</option>
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Tour type</div>
+          <select>
+            <option>Half-day</option>
+            <option>Full-day</option>
+            <option>Multi-day</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Date</div>
+          <input type="date">
+        </div>
+        <div>
+          <div class="pill-label">Group size</div>
+          <select>
+            <option>1&ndash;2</option>
+            <option>3&ndash;5</option>
+            <option>6&ndash;10</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Language</div>
+          <select>
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Local language (where available)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <span><strong>&#8377; 2,900</strong> per person (sample)</span>
+        <button class="action" onclick="showTourSamples()">Review sample tour</button>
+      </div>
+      <div class="pill-note">For design preview &ndash; no live guide assignment.</div>
+    </div>
+  </div>
+
+  <div id="tourSampleList" style="margin-top:30px; display:none;">
+    <h3>Sample guided tours</h3>
+    <div class="trip-grid">
+      <div class="trip-card">
+        <img src="images/tours/Aagra.jpg" alt="Sunrise Taj Mahal &amp; Agra Fort walking tour">
+        <div class="trip-header">
+          <span class="trip-location">Agra</span>
+          <span class="trip-tag">Taj &amp; Fort</span>
+        </div>
+        <p class="trip-subtitle">Sunrise Taj Mahal &amp; Agra Fort walking tour.</p>
+      </div>
+      <div class="trip-card">
+        <img src="images/tours/Jaipur.jpg" alt="Jaipur forts &amp; bazaars with local guide">
+        <div class="trip-header">
+          <span class="trip-location">Jaipur</span>
+          <span class="trip-tag">Forts &amp; Bazaars</span>
+        </div>
+        <p class="trip-subtitle">Jaipur forts &amp; bazaars with local guide.</p>
+      </div>
+      <div class="trip-card">
+        <img src="images/tours/Kerla.jpg" alt="Kerala backwater day cruise with village visit">
+        <div class="trip-header">
+          <span class="trip-location">Kerala</span>
+          <span class="trip-tag">Backwater</span>
+        </div>
+        <p class="trip-subtitle">Kerala backwater day cruise with village visit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="restaurantService">
+<h2 align="center">Restaurant Experiences</h2>
+<div style="max-width:900px; margin:0 auto;">
+  <button class="action" style="margin-bottom:16px;" onclick="showSection('services')">&#8592; Back to Services</button>
+
+  <p style="text-align:center; color:#555; max-width:640px; margin:0 auto 20px;">
+  Imagine reserving handpicked dining experiences during your trip &ndash; this screen shows how.
+  </p>
+
+  <div class="trip-grid">
+    <div class="trip-card">
+      <img src="images/restaurants/download.jpeg" alt="Restaurant booking example">
+      <div class="trip-header">
+        <span class="trip-location">Reserve a table</span>
+        <span class="trip-tag">Local &amp; fine dining</span>
+      </div>
+      <p class="trip-subtitle">Configure a demo restaurant booking with timing and cuisine.</p>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">City</div>
+          <select>
+            <option>Goa</option>
+            <option>Jaipur</option>
+            <option>Agra</option>
+            <option>Kerala</option>
+          </select>
+        </div>
+        <div>
+          <div class="pill-label">Guests</div>
+          <select>
+            <option>2 guests</option>
+            <option>3&ndash;4 guests</option>
+            <option>Group (5+)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Date</div>
+          <input type="date">
+        </div>
+        <div>
+          <div class="pill-label">Time</div>
+          <input type="time">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="pill-label">Cuisine preference</div>
+          <select>
+            <option>Local authentic</option>
+            <option>Multi-cuisine</option>
+            <option>Fine dining</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <span><strong>&#8377; 1,200</strong> avg. spend (sample)</span>
+        <button class="action" onclick="showRestaurantSamples()">Review sample reservation</button>
+      </div>
+      <div class="pill-note">Purely a visual mock &ndash; no live bookings occur.</div>
+    </div>
+  </div>
+
+  <div id="restaurantSampleList" style="margin-top:30px; display:none;">
+    <h3>Sample restaurant experiences</h3>
+    <div class="trip-grid">
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(2).jpeg" alt="Fisherman's Wharf Goa">
+        <div class="trip-header">
+          <span class="trip-location">Goa</span>
+          <span class="trip-tag">Fisherman's Wharf</span>
+        </div>
+        <p class="trip-subtitle">Beachfront seafood dinner at Fisherman's Wharf, North Goa.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,800</strong> avg. spend</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(3).jpeg" alt="Padao Restaurant Jaipur">
+        <div class="trip-header">
+          <span class="trip-location">Jaipur</span>
+          <span class="trip-tag">Padao Restaurant</span>
+        </div>
+        <p class="trip-subtitle">Rooftop Rajasthani thali at Padao Restaurant, Nahargarh Fort.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,400</strong> avg. spend</span>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(4).jpeg" alt="Vembanad House Kerala">
+        <div class="trip-header">
+          <span class="trip-location">Kerala</span>
+          <span class="trip-tag">Vembanad House</span>
+        </div>
+        <p class="trip-subtitle">Traditional Kerala sadya lunch at Vembanad House, near the backwaters.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,100</strong> avg. spend</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px;">More dining inspiration</h3>
+    <div class="trip-grid">
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(5).jpeg" alt="Thalassa Goa">
+        <div class="trip-header">
+          <span class="trip-location">Goa</span>
+          <span class="trip-tag">Thalassa</span>
+        </div>
+        <p class="trip-subtitle">Iconic Greek restaurant overlooking the sea, Vagator.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 900</strong> sample spend</span>
+        </div>
+      </div>
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(6).jpeg" alt="Spice Court Jaipur">
+        <div class="trip-header">
+          <span class="trip-location">Jaipur</span>
+          <span class="trip-tag">Spice Court</span>
+        </div>
+        <p class="trip-subtitle">Modern Rajasthani and North Indian fare at Spice Court.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,000</strong> sample spend</span>
+        </div>
+      </div>
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(7).jpeg" alt="Paragon Restaurant Kerala">
+        <div class="trip-header">
+          <span class="trip-location">Kerala</span>
+          <span class="trip-tag">Paragon Restaurant</span>
+        </div>
+        <p class="trip-subtitle">Famous for Malabar biryani and seafood in Kozhikode.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,200</strong> sample spend</span>
+        </div>
+      </div>
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(8).jpeg" alt="Pinch of Spice Agra">
+        <div class="trip-header">
+          <span class="trip-location">Agra</span>
+          <span class="trip-tag">Pinch of Spice</span>
+        </div>
+        <p class="trip-subtitle">Popular spot for Mughlai delicacies near Taj Mahal.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,500</strong> sample spend</span>
+        </div>
+      </div>
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(9).jpeg" alt="Curry Leaf Kerala">
+        <div class="trip-header">
+          <span class="trip-location">Kerala</span>
+          <span class="trip-tag">Curry Leaf</span>
+        </div>
+        <p class="trip-subtitle">Traditional Kerala cuisine and seafood, Kochi.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,300</strong> sample spend</span>
+        </div>
+      </div>
+      <div class="trip-card">
+        <img src="images/restaurants/download%20(10).jpeg" alt="Dasaprakash Agra">
+        <div class="trip-header">
+          <span class="trip-location">Agra</span>
+          <span class="trip-tag">Dasaprakash</span>
+        </div>
+        <p class="trip-subtitle">Classic South Indian vegetarian cuisine, Agra.</p>
+        <div class="price-row">
+          <span><strong>&#8377; 1,600</strong> sample spend</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section id="about">
@@ -330,7 +1587,7 @@ Travix<br>
 </section>
 
 <footer>
-<p>© 2026 Travix Tourism </p>
+<p>&copy; 2026 Travix Tourism </p>
 
 <p>
 Follow us on Instagram:
